@@ -1,0 +1,155 @@
+7.8s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.8s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.8s 3 0.00s - to python to disable frozen modules.
+7.8s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.5s 7 0.00s - to python to disable frozen modules.
+8.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+36.6s 9 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+36.6s 10 
+36.6s 11 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+39.6s 12 `torch_dtype` is deprecated! Use `dtype` instead!
+39.6s 13 
+39.6s 14 `torch_dtype` is deprecated! Use `dtype` instead!
+43.8s 15 GPT2LMHeadModel LOAD REPORT from: distilgpt2
+43.8s 16 Key                                        | Status     |  |
+43.8s 17 -------------------------------------------+------------+--+-
+43.8s 18 transformer.h.{0, 1, 2, 3, 4, 5}.attn.bias | UNEXPECTED |  |
+43.8s 19 
+43.8s 20 Notes:
+43.8s 21 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+43.8s 22 
+43.8s 23 GPT2LMHeadModel LOAD REPORT from: distilgpt2
+43.8s 24 Key                                        | Status     |  |
+43.8s 25 -------------------------------------------+------------+--+-
+43.8s 26 transformer.h.{0, 1, 2, 3, 4, 5}.attn.bias | UNEXPECTED |  |
+43.8s 27 
+43.8s 28 Notes:
+43.8s 29 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+44.7s 30 loaded SAE m=1024 k=102 from step 99,999
+49.1s 31 Token indices sequence length is longer than the specified maximum sequence length for this model (1217 > 1024). Running this sequence through the model will result in indexing errors
+49.1s 32 
+49.1s 33 Token indices sequence length is longer than the specified maximum sequence length for this model (1217 > 1024). Running this sequence through the model will result in indexing errors
+91.0s 34 held-out ids: torch.Size([2000, 128])
+99.5s 35 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+99.5s 36 
+99.5s 37 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+102.3s 38 baseline PPL = 37.56
+102.3s 39 
+102.3s 40 ============================================================
+102.3s 41 SMOKE TESTS
+102.3s 42 ============================================================
+102.3s 43 
+102.3s 44 [1] Bottleneck collection shape
+102.3s 45 Z shape: torch.Size([2560, 1024])  ✓
+102.3s 46 
+102.3s 47 [2] Neuron ranking
+102.8s 48 ℓ2 scores: min=0.00409  max=1.83037  ✓
+102.8s 49 KL scores: min=0.11372  max=10.92837  ✓
+102.8s 50 
+102.8s 51 [3] Singular values
+103.3s 52 top-5 singular values: [267.17 229.91 186.97 180.42 169.49]  ✓
+103.3s 53 
+103.3s 54 [4] Ablation smoke test
+103.7s 55 baseline PPL = 37.56
+103.7s 56 ablated PPL  = 51.26
+103.7s 57 ✓
+103.7s 58 
+103.7s 59 [5] Jacobian norms (2 batches)
+104.8s 60 Jacobian norms: min=0.00001  max=0.00025  ✓
+104.8s 61 
+104.8s 62 [6] Subspace-preserving quantisation
+104.8s 63 SDS standard 4-bit:          0.0247
+104.8s 64 SDS subspace-preserving 8+2: 0.0917
+104.8s 65 ✓
+104.8s 66 
+104.8s 67 ✓ all smoke tests passed
+104.8s 68 
+110.4s 69 ============================================================
+110.4s 70 SECTION 3: Representation Damage
+110.4s 71 ============================================================
+116.0s 72 saved → neuron_ranking.png
+116.0s 73 
+116.0s 74 Top-5 damaged features (4-bit): [584, 969, 380, 1020, 142]
+116.0s 75 Random features:                          [102, 261, 342, 956, 130]
+124.6s 76 principal angles: mean cos θ = 0.9886  min cos θ = 0.7019
+124.6s 77 (1.0 = perfectly aligned, 0.0 = orthogonal)
+127.3s 78 
+127.3s 79 Top-activating tokens for most damaged features:
+127.3s 80 Feature 584: '<|endoftext|>' (37.09), ' kind' (34.28), '49' (34.00), 'negative' (33.94), 'DB' (33.81)
+127.3s 81 Feature 969: ');' (8.52), ' --' (7.91), ' and' (7.66), '],' (7.50), '>' (7.32)
+127.3s 82 Feature 380: ' </' (7.22), ' are' (6.64), ' we' (6.09), 'Now' (6.00), ',' (6.00)
+127.3s 83 Feature 1020: '.' (10.10), ' will' (9.12), ' will' (8.91), ' we' (8.89), ''ll' (8.88)
+127.3s 84 Feature 142: ' is' (8.62), ' can' (8.05), ' are' (7.86), ' can' (7.81), ' can' (7.80)
+127.3s 85 Running ablation study...
+130.0s 86 feature  584 (top-damaged):  PPL=72.34  Δ=+92.6%
+132.7s 87 feature  969 (top-damaged):  PPL=43.75  Δ=+16.5%
+135.4s 88 feature  380 (top-damaged):  PPL=43.70  Δ=+16.4%
+138.1s 89 feature 1020 (top-damaged):  PPL=43.67  Δ=+16.3%
+140.8s 90 feature  142 (top-damaged):  PPL=43.75  Δ=+16.5%
+143.5s 91 feature  102 (random):       PPL=43.73  Δ=+16.4%
+146.3s 92 feature  261 (random):       PPL=43.69  Δ=+16.3%
+149.0s 93 feature  342 (random):       PPL=43.76  Δ=+16.5%
+151.7s 94 feature  956 (random):       PPL=43.65  Δ=+16.2%
+154.5s 95 feature  130 (random):       PPL=43.68  Δ=+16.3%
+154.8s 96 
+154.8s 97 Computing Jacobian norms for alignment test...
+160.5s 98 
+160.5s 99 Alignment test:
+160.5s 100 Spearman ρ = 0.2343  (p = 0.0000)
+160.5s 101 Interpretation: weak alignment between quantisation damage and perplexity impact
+160.8s 102 
+160.8s 103 ============================================================
+160.8s 104 SECTION 4: Mechanistic Explanation
+160.8s 105 ============================================================
+160.8s 106 
+160.8s 107 Failure mode 1: low-variance collapse
+165.2s 108 7/32 principal directions have >50% variance collapse at 2-bit
+165.2s 109 
+165.2s 110 Failure mode 2: sparsity fragility
+166.2s 111 Sparsity fragility (4-bit):
+166.2s 112 L0 full-precision : 102.0
+166.2s 113 L0 quantised      : 55.5
+166.2s 114 Jaccard similarity: 0.5438  (1.0 = same active set)
+166.2s 115 False positives   : 0.00 features/token (erroneously activated)
+166.2s 116 False negatives   : 46.53 features/token (erroneously killed)
+167.1s 117 Sparsity fragility (2-bit):
+167.1s 118 L0 full-precision : 102.0
+167.1s 119 L0 quantised      : 3.0
+167.1s 120 Jaccard similarity: 0.0292  (1.0 = same active set)
+167.1s 121 False positives   : 0.00 features/token (erroneously activated)
+167.1s 122 False negatives   : 99.02 features/token (erroneously killed)
+167.1s 123 
+167.1s 124 Failure mode 3: subspace rotation
+167.1s 125 Subspace rotation (4-bit):
+167.1s 126 Mean cos θ : 0.9886
+167.1s 127 Min  cos θ : 0.7019
+167.1s 128 Fraction of PCs with cos θ < 0.9: 1.56%
+167.1s 129 
+167.1s 130 Subspace-preserving quantisation comparison:
+173.2s 131 Standard 4-bit                 PPL=48.38 (+28.8%)  SDS=0.0247  CKA=0.9775  MSE=0.0734
+179.3s 132 Subspace-preserving (8+2)      PPL=73.70 (+96.3%)  SDS=0.0946  CKA=0.9019  MSE=0.1966
+179.6s 133 
+179.6s 134 ============================================================
+179.6s 135 SUMMARY
+179.6s 136 ============================================================
+179.6s 137 Baseline PPL                 : 37.56
+179.6s 138 Top-damaged features (4-bit) : [584, 969, 380, 1020, 142]
+179.6s 139 Damage–impact alignment ρ    : 0.2343  (p=0.0000)
+179.6s 140 Outputs saved to /kaggle/working
+185.3s 141 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+185.3s 142 cells[i][c] = re.sub('\\\\\|', '|', cell)
+185.5s 143 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+185.5s 144 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+186.1s 145 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+186.5s 146 [NbConvertApp] Writing 595747 bytes to __notebook__.ipynb
+188.9s 147 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+190.3s 148 [NbConvertApp] Support files will be in __results___files/
+190.3s 149 [NbConvertApp] Making directory __results___files
+190.3s 150 [NbConvertApp] Making directory __results___files
+190.3s 151 [NbConvertApp] Making directory __results___files
+190.3s 152 [NbConvertApp] Making directory __results___files
+190.3s 153 [NbConvertApp] Making directory __results___files
+190.3s 154 [NbConvertApp] Making directory __results___files
+190.3s 155 [NbConvertApp] Writing 999258 bytes to __results__.html

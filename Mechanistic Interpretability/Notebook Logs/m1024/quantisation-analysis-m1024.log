@@ -1,0 +1,155 @@
+8.0s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.0s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.0s 3 0.00s - to python to disable frozen modules.
+8.0s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.7s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.7s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.7s 7 0.00s - to python to disable frozen modules.
+8.7s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+37.4s 9 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+37.4s 10 
+37.4s 11 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+44.9s 12 GPT2LMHeadModel LOAD REPORT from: distilgpt2
+44.9s 13 Key                                        | Status     |  |
+44.9s 14 -------------------------------------------+------------+--+-
+44.9s 15 transformer.h.{0, 1, 2, 3, 4, 5}.attn.bias | UNEXPECTED |  |
+44.9s 16 
+44.9s 17 Notes:
+44.9s 18 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+44.9s 19 
+44.9s 20 GPT2LMHeadModel LOAD REPORT from: distilgpt2
+44.9s 21 Key                                        | Status     |  |
+44.9s 22 -------------------------------------------+------------+--+-
+44.9s 23 transformer.h.{0, 1, 2, 3, 4, 5}.attn.bias | UNEXPECTED |  |
+44.9s 24 
+44.9s 25 Notes:
+44.9s 26 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+46.2s 27 SAE loaded: m=1024 k=102 from step 99,999
+48.5s 28 Token indices sequence length is longer than the specified maximum sequence length for this model (1217 > 1024). Running this sequence through the model will result in indexing errors
+48.5s 29 
+48.5s 30 Token indices sequence length is longer than the specified maximum sequence length for this model (1217 > 1024). Running this sequence through the model will result in indexing errors
+88.9s 31 held-out ids: torch.Size([200, 128])
+88.9s 32 ============================================================
+88.9s 33 SMOKE TESTS
+88.9s 34 ============================================================
+88.9s 35 
+88.9s 36 [1] Baseline perplexity (no patching)
+89.0s 37 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+89.0s 38 
+89.0s 39 `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+90.6s 40 perplexity = 36.86
+90.6s 41 ✓
+90.6s 42 
+90.6s 43 [2] Identity patch (SAE reconstruction, no quantisation)
+92.0s 44 perplexity = 43.45  (+17.9% vs baseline)
+92.0s 45 ✓
+92.0s 46 
+92.0s 47 [3] 8-bit per-tensor quantisation
+93.4s 48 perplexity = 43.35
+93.4s 49 ✓
+93.4s 50 
+93.4s 51 [4] 2-bit per-tensor quantisation
+94.7s 52 perplexity = 304.07
+94.7s 53 ✓
+94.7s 54 
+94.7s 55 [5] SDS sanity check
+96.4s 56 SDS(k=32, 8-bit) = 0.0046  (expect < 0.5 for 8-bit)
+96.4s 57 ✓
+96.4s 58 
+96.4s 59 [6] CKA sanity check
+96.4s 60 CKA(Z, Z)   = 1.0000  (expect 1.0)
+96.4s 61 CKA(Z, Z_q) = 0.9949    (expect < 1.0)
+96.4s 62 ✓
+96.4s 63 
+96.4s 64 ✓ all smoke tests passed
+96.4s 65 
+137.1s 66 held-out ids: torch.Size([2000, 128])
+137.1s 67 Collecting calibration activations...
+138.6s 68 calibration set: 28,672 activation vectors
+138.6s 69 
+138.6s 70 Computing full-precision subspace bases...
+145.1s 71 subspaces fitted for k = [32, 64, 128]
+145.1s 72 
+145.1s 73 Running identity patch (SAE reconstruction, no quantisation)...
+159.0s 74 PPL = 47.03  (+27.6%)
+159.0s 75 
+159.0s 76 Running per_tensor 8-bit...
+175.1s 77 PPL=46.82 (+27.1%)  MSE=0.0018  CKA=0.9949  SDS@32=0.0052  SDS@64=0.0041  SDS@128=0.0034
+175.1s 78 Running per_tensor 4-bit...
+191.9s 79 PPL=52.19 (+41.6%)  MSE=0.0734  CKA=0.9775  SDS@32=0.0194  SDS@64=0.0247  SDS@128=0.0341
+191.9s 80 Running per_tensor 2-bit...
+209.0s 81 PPL=336.02 (+811.7%)  MSE=0.4315  CKA=0.7401  SDS@32=0.3620  SDS@64=0.3930  SDS@128=0.4273
+209.0s 82 Running per_feature 8-bit...
+226.0s 83 PPL=48.76 (+32.3%)  MSE=0.0286  CKA=0.9778  SDS@32=0.0328  SDS@64=0.0333  SDS@128=0.0347
+226.0s 84 Running per_feature 4-bit...
+243.7s 85 PPL=49.81 (+35.1%)  MSE=0.0400  CKA=0.9717  SDS@32=0.0429  SDS@64=0.0440  SDS@128=0.0464
+243.7s 86 Running per_feature 2-bit...
+261.0s 87 PPL=80.12 (+117.4%)  MSE=0.1984  CKA=0.9021  SDS@32=0.1396  SDS@64=0.1508  SDS@128=0.1699
+261.0s 88 Running VQ (256 codes)...
+261.4s 89 Fitting VQ codebook: 256 codes on 28,672 activations...
+290.2s 90 Codebook fitted: torch.Size([256, 1024])  inertia=9094872.00
+307.5s 91 PPL=572.56 (+1453.5%)  MSE=0.3344  CKA=0.8067  SDS@32=0.2280  SDS@64=0.2819  SDS@128=0.3443
+307.5s 92 Running VQ (1024 codes)...
+307.5s 93 Fitting VQ codebook: 1024 codes on 28,672 activations...
+422.8s 94 Codebook fitted: torch.Size([1024, 1024])  inertia=6976136.50
+440.5s 95 PPL=412.51 (+1019.3%)  MSE=0.2756  CKA=0.8430  SDS@32=0.1878  SDS@64=0.2302  SDS@128=0.2776
+440.5s 96 
+440.5s 97 ===================================================================================
+440.5s 98 Baseline (clean) PPL = 36.86
+440.5s 99 Quant type      Bits      PPL    ΔPPL%      MSE     CKA   SDS@32   SDS@64   SDS@128
+440.5s 100 -----------------------------------------------------------------------------------
+440.5s 101 none               —    47.03    +27.6   0.0000  1.0000   0.0000   0.0000    0.0000
+440.5s 102 per_tensor         8    46.82    +27.1   0.0018  0.9949   0.0052   0.0041    0.0034
+440.5s 103 per_tensor         4    52.19    +41.6   0.0734  0.9775   0.0194   0.0247    0.0341
+440.5s 104 per_tensor         2   336.02   +811.7   0.4315  0.7401   0.3620   0.3930    0.4273
+440.5s 105 per_feature        8    48.76    +32.3   0.0286  0.9778   0.0328   0.0333    0.0347
+440.5s 106 per_feature        4    49.81    +35.1   0.0400  0.9717   0.0429   0.0440    0.0464
+440.5s 107 per_feature        2    80.12   +117.4   0.1984  0.9021   0.1396   0.1508    0.1699
+440.5s 108 vq_256          ~8b/vec   572.56  +1453.5   0.3344  0.8067   0.2280   0.2819    0.3443
+440.5s 109 vq_1024         ~10b/vec   412.51  +1019.3   0.2756  0.8430   0.1878   0.2302    0.2776
+440.5s 110 -----------------------------------------------------------------------------------
+440.5s 111 
+440.5s 112 results saved → /kaggle/working/quantisation_results.csv
+459.7s 113 2026-06-05 09:07:42.447202: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+459.7s 114 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+459.7s 115 E0000 00:00:1780650462.689688      24 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+459.7s 116 E0000 00:00:1780650462.759309      24 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+459.7s 117 W0000 00:00:1780650463.327945      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.7s 118 W0000 00:00:1780650463.327973      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.7s 119 W0000 00:00:1780650463.327976      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.7s 120 W0000 00:00:1780650463.327978      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 121 2026-06-05 09:07:42.447202: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+459.9s 122 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+459.9s 123 E0000 00:00:1780650462.689688      24 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+459.9s 124 E0000 00:00:1780650462.759309      24 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+459.9s 125 W0000 00:00:1780650463.327945      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 126 W0000 00:00:1780650463.327973      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 127 W0000 00:00:1780650463.327976      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 128 W0000 00:00:1780650463.327978      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 129 
+459.9s 130 2026-06-05 09:07:42.447202: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+459.9s 131 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+459.9s 132 E0000 00:00:1780650462.689688      24 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+459.9s 133 E0000 00:00:1780650462.759309      24 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+459.9s 134 W0000 00:00:1780650463.327945      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 135 W0000 00:00:1780650463.327973      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 136 W0000 00:00:1780650463.327976      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+459.9s 137 W0000 00:00:1780650463.327978      24 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+471.7s 138 Collecting bottleneck activations for UMAP...
+473.2s 139 fitting UMAP on 9,984 tokens...
+473.3s 140 /usr/local/lib/python3.12/dist-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+473.3s 141 warn(
+473.3s 142 
+473.3s 143 /usr/local/lib/python3.12/dist-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+473.3s 144 warn(
+542.4s 145 UMAP saved → /kaggle/working/umap_quantisation.png
+547.7s 146 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+547.7s 147 cells[i][c] = re.sub('\\\\\|', '|', cell)
+547.8s 148 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+547.8s 149 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+548.5s 150 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+548.9s 151 [NbConvertApp] Writing 323998 bytes to __notebook__.ipynb
+551.3s 152 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+552.3s 153 [NbConvertApp] Support files will be in __results___files/
+552.3s 154 [NbConvertApp] Making directory __results___files
+552.3s 155 [NbConvertApp] Writing 560151 bytes to __results__.html
