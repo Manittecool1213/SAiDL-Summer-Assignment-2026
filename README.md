@@ -1,12 +1,16 @@
 # SAiDL Summer Assignment 2026
 
-My attempt of the summer '26 [assignment](https://github.com/SforAiDl/SAiDL-Summer-2026-Induction-Assignment)
+---
+
+My attempt of the summer '26 [assignment](https://github.com/SforAiDl/SAiDL-Summer-2026-Induction-Assignment).
 
 Chosen track (other than mandatory Core ML): Mechanistic Interpretability.
 
 Refer to [`Report.pdf`](./Report.pdf) for analytical details; code is explained through in-line comments.
 
-### Project structure
+---
+
+## Project structure
 
 ```
 .
